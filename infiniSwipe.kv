@@ -1,0 +1,161 @@
+<ContentNavigationDrawer>:
+    orientation: "vertical"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: "100dp"
+        adaptive_height: True
+
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "top"
+            
+            # Header
+            MDNavigationDrawerHeader:
+                padding: 20,20, 20, 20
+                title: "InfiniSwipe"
+                title_color: "#949494"
+                text: "v. 0.0.1"
+                md_bg_color: "#D8D4D4" 
+
+
+        # List of navigation items
+        MDList:
+
+            OneLineListItem:
+                icon: "home"
+                text: "Home"
+                theme_text_color: "Custom"  # You can use "Custom" and specify a color in the text_color property
+                text_color: "#3d403f"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "home"
+                     
+
+            OneLineListItem:
+                icon: "play-circle"
+                text: "Test"
+                theme_text_color: "Custom"  
+                text_color: "#3d403f"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "test"
+
+            OneLineListItem:
+                icon: "cog"
+                text: "Settings"
+                theme_text_color: "Custom"  
+                text_color: "#3d403f"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "set"
+
+            OneLineListItem:
+                icon: "information-outline"
+                text: "About"
+                theme_text_color: "Custom"  
+                text_color: "#3d403f"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "about"
+
+
+MDScreen:
+
+    MDTopAppBar:
+        pos_hint: {"top": 1}
+        elevation: 4
+        title: "InfiniSwiper"
+        title_color: "#949494"
+        md_bg_color: "#585858"
+        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+
+    MDNavigationLayout:
+
+        MDScreenManager:
+            id: screen_manager
+
+            MDScreen:
+                name: "home"
+                Home:
+
+            MDScreen:
+                name: "test"
+                Test:
+
+            MDScreen:
+                name: "set"
+                Set:
+
+            MDScreen:
+                name: "about"
+                About:
+
+    
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: 0
+
+            ContentNavigationDrawer:
+                screen_manager: screen_manager
+                nav_drawer: nav_drawer
+
+<Home>:
+    BoxLayout:
+        orientation: "vertical"
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: [0,"80dp",0,"10dp"]
+            
+            Image:
+                id: cam
+                size_hint: (1,1)
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                #source: "selfie.jpg"
+               
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint_y: 0.5
+            spacing: "20px"
+           
+            MDLabel:
+                text: "Here will be the verification of the direction"
+                size_hint: (0.5,1)
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                halign: "center"
+                md_bg_color: "#585858"
+                 
+            MDFlatButton:
+                id: button
+                text: "Start"
+                pos_hint: {"center_x": .5, "center_y": 1}
+                md_bg_color: "#585858"
+                line_color: "#585858"
+                theme_text_color: "Custom"  
+                text_color: "#FFFFFF"
+                size_hint_x: 0.5 
+                on_release: root.toggle_text()
+                
+            MDLabel:
+                text: "This will be the timer"
+                id: additional_text
+                halign: "center"
+                opacity: 0
+
+
+            
+
+<Test>:
+
+
+       
+
+<Set>:
+    MDLabel:
+        text: "Settings"
+        halign: "center"
+<About>:
+    MDLabel:
+        text: "About"
+        halign: "center"

@@ -1,0 +1,155 @@
+
+MDNavigationLayout:
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: 0
+        md_bg_color: "#2C2929"
+
+        MDNavigationDrawerMenu:
+
+            MDNavigationDrawerHeader:
+                title: "InfiniSwipe"
+                title_color: "#949494"
+                text: "v. 0.0.1"
+                padding: "50px", "50px", "50px", "50px"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                md_bg_color: "#D8D4D4"
+                
+
+            MDNavigationDrawerDivider:
+
+            MDNavigationDrawerItem:
+                icon: "home"
+                text: "Home"
+                on_release:
+                    screen_manager.current = "home"
+                    nav_drawer.set_state("close")
+
+            MDNavigationDrawerItem:
+                icon: "play-circle"
+                text: "Test"
+                on_release:
+                    screen_manager.current = "test"
+                    nav_drawer.set_state("close")
+
+            MDNavigationDrawerItem:
+                icon: "cog"
+                text: "Settings"
+                on_release:
+                    screen_manager.current = "settings"
+                    nav_drawer.set_state("close")
+
+            MDNavigationDrawerItem:
+                icon: "information-outline"
+                text: "About"
+                on_release:
+                    screen_manager.current = "about"
+                    nav_drawer.set_state("close")
+    
+    MDBoxLayout:
+        orientation: "vertical"
+        MDTopAppBar:
+                title: "InfiniSwipe"
+                elevation: 4
+                pos_hint: {"top": 1}
+                md_bg_color: "#D8D4D4"
+                specific_text_color: "#585858"
+                left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+
+        ScreenManager:
+            id: screen_manager
+
+            Screen:
+                name: "home"
+                Home:
+                    id: home_screen
+                    screen_manager: screen_manager
+
+            Screen:
+                name: "test"
+                Test:
+                    id: test_screen
+                    screen_manager: screen_manager
+
+            Screen:
+                name: "settings"
+                Settings:
+                    id: settings_screen
+                    screen_manager: screen_manager
+
+            Screen:
+                name: "about"
+                About:
+                    id: about_screen
+                    screen_manager: screen_manager
+
+
+
+<Home>:
+    MDScreen: 
+
+        RelativeLayout:
+            MDRectangleFlatButton:
+                text: "Start"
+                size_hint: None, None
+                width: dp(300)
+                height: dp(60)
+                md_bg_color: get_color_from_hex("585858")
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("FFFFFF")
+                line_color: get_color_from_hex("585858")
+                line_width: 2.25
+                radius: [dp(5)]
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_release:
+                    self.text = "Stop" if self.text == "Start" else "Start"
+
+
+<Test>:
+    # screen for test site
+    BoxLayout:
+        orientation: "vertical"
+
+        MDTopAppBar:
+            title: "Test"
+            elevation: 4
+            pos_hint: {"top": 1}
+            md_bg_color: "#D8D4D4"
+            specific_text_color: "#585858"
+            left_action_items: [["arrow-left", lambda x: setattr(root.screen_manager, 'current', 'home')]]
+
+
+        MDLabel:
+            text: "Test Site"
+
+<Settings>:
+    # screen for setting site
+    BoxLayout:
+        orientation: "vertical"
+
+        MDTopAppBar:
+            title: "Settings"
+            elevation: 4
+            pos_hint: {"top": 1}
+            md_bg_color: "#D8D4D4"
+            specific_text_color: "#585858"
+            left_action_items: [["arrow-left", lambda x: setattr(root.screen_manager, 'current', 'home')]]
+
+        MDLabel:
+            text: "Test Site"
+
+<About>:
+    # screen for about site
+    BoxLayout:
+        orientation: "vertical"
+
+        MDTopAppBar:
+            title: "About"
+            elevation: 4
+            pos_hint: {"top": 1}
+            md_bg_color: "#D8D4D4"
+            specific_text_color: "#585858"
+            left_action_items: [["arrow-left", lambda x: setattr(root.screen_manager, 'current', 'home')]]
+
+        MDLabel:
+            text: "Test Site"
